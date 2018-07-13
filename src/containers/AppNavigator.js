@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createTabNavigator, TabBarBottom } from 'react-navigation';
+import { createStackNavigator, createTabNavigator, createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import StationsStatus from './StationsStatus';
+import Profile from './Profile';
+import Notifications from './Notifications';
 
 const HomeStack = createStackNavigator(
   {
@@ -22,24 +24,24 @@ const ImageStack = createStackNavigator(
 
 const NotifsStack = createStackNavigator(
   {
-    StationsStatus: { screen: StationsStatus },
+    Notifs: { screen: Notifications },
   }, {
     headerMode: 'none',
-    initialRouteName: 'StationsStatus',
+    initialRouteName: 'Notifs',
   }
 );
 
 const ProfileStack = createStackNavigator(
   {
-    StationsStatus: { screen: StationsStatus },
+    Profile: { screen: Profile },
   }, {
     headerMode: 'none',
-    initialRouteName: 'StationsStatus',
+    initialRouteName: 'Profile',
   }
 );
 
 
-const HomeNavigator = createTabNavigator(
+const HomeNavigator = createBottomTabNavigator(
   {
     // Deals: {
     //   screen: DealsStack, navigationOptions: ({ navigation }) => ({
@@ -65,14 +67,12 @@ const HomeNavigator = createTabNavigator(
   {
     initialRouteName: 'Home',
     headerMode: 'none',
-    swipeEnabled: false,
-    tabBarPosition: 'bottom',
-    tabBarComponent: TabBarBottom,
-    lazy: false,
+    // swipeEnabled: true,
+    // lazy: false,
     tabBarOptions: {
       activeBackgroundColor: '#ffffff',
       activeTintColor: '#000000',
-      inactiveTintColor: '#000000',
+      inactiveTintColor: '#b7b7b7',
       showIcon: true,
       style: {
         backgroundColor: '#ffffff',
@@ -84,12 +84,12 @@ const HomeNavigator = createTabNavigator(
         fontSize: 12,
       }
     },
-    navigationOptions: {
-      tabBarOnPress: ({ previousScene, scene, jumpToIndex }) => {
-        //console.log('route: ' + previousScene.route.index);
-        jumpToIndex(scene.index);
-      }
-    }
+    // navigationOptions: {
+    //   tabBarOnPress: ({ previousScene, scene, jumpToIndex }) => {
+    //     //console.log('route: ' + previousScene.route.index);
+    //     jumpToIndex(scene.index);
+    //   }
+    // }
   }
 );
 
