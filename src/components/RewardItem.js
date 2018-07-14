@@ -8,8 +8,8 @@ class RewardItem extends Component {
       <TouchableOpacity style={{ flex: 0, flexDirection: 'column', alignItems: 'center', marginBottom: 10 }}
         onPress={this.props.onPressAction}>
         <Image source={require("../assets/images/ticket.png")} style={{ width: '100%', height: 250 }} />
-        <Text>Single Journey Ticket</Text>
-        <Text>100 points to avail</Text>
+        <Text>{this.props.rewardName}</Text>
+        <Text>{`${this.props.rewardValue} points to avail`}</Text>
       </TouchableOpacity>
     );
   }

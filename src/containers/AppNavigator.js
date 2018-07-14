@@ -7,6 +7,7 @@ import StationDetailsContainer from './StationDetailsContainer';
 import ProfileContainer from './ProfileContainer';
 import RewardsContainer from './RewardsContainer';
 import RewardDetailsContainer from './RewardDetailsContainer';
+import TicketStoresContainer from './TicketStoresContainer';
 
 const HomeStack = createStackNavigator(
   {
@@ -20,10 +21,10 @@ const HomeStack = createStackNavigator(
 
 const TicketStack = createStackNavigator(
   {
-    StationsStatus: { screen: StationsStatus },
+    TicketStores: { screen: TicketStoresContainer },
   }, {
     headerMode: 'none',
-    initialRouteName: 'StationsStatus',
+    initialRouteName: 'TicketStores',
   }
 );
 
