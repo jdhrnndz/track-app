@@ -26,12 +26,13 @@ class TicketStoresContainer extends Component {
     return (<PopupDialog
       ref={(popupDialog) => { this.popupDialog = popupDialog; }}
       dialogStyle={{ marginTop: -100 }}
-      height={0.8}>
+      height={0.8}
+      width={0.9}>
       <View style={{ padding: 10, flex: 0, flexDirection: 'column' }}>
         <Icon name="close" style={{ alignSelf: 'flex-end' }} onPress={() => this.hidePopup()} />
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>LRT E-ticket</Text>
         <Text>Light Rail Transit Electronic Ticket</Text>
-        <Image source={require("../assets/images/ticket_qr.png")} style={{ width: '70%', height: 340, alignSelf: 'center' }} />
+        <Image source={require("../assets/images/ticket_qr.png")} style={{ width: '70%', height: 300, alignSelf: 'center' }} />
         <Button block style={{ alignSelf: 'center', marginBottom: 5 }}>
           <Text>
             Learn how to load your E-ticket
@@ -48,7 +49,7 @@ class TicketStoresContainer extends Component {
           <AppHeader headerTitle='LRT E-Ticket' />
           {this.renderPopup()}
           <View style={{ flex: 0, flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontWeight: 'bold', marginHorizontal: 40, textAlign: 'center', marginTop: 20 }}>Tap a loading station to know the procedure on how to load your E-ticket.
+            <Text style={{ fontWeight: 'bold', marginHorizontal: 40, marginVertical: 30, textAlign: 'center' }}>Tap a loading station to know the procedure on how to load your E-ticket.
             </Text>
             <Grid style={{ flex: 0 }}>
               <Row style={{ flex: 0, marginBottom: 20, justifyContent: 'center' }}>
