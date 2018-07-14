@@ -22,7 +22,7 @@ class StationOverviewCard extends Component {
                 <Text style={styles[northbound.toLowerCase()]}>{northbound}</Text>
               </View>
             </View>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('StationDetails') }} style={styles.cardAction}>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate('StationDetails', { id: this.props.title }) }} style={styles.cardAction}>
               <Text style={{ textAlign: 'center', color: '#072b4e' }}>
                 More{"\n"}Details
               </Text>
