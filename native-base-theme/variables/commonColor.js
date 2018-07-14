@@ -253,7 +253,7 @@ export default {
   titleFontColor: platform === "ios" ? "#000" : "#000",
 
   // Other
-  borderRadiusBase: platform === "ios" ? 5 : 2,
+  borderRadiusBase: platform === "ios" ? 5 : 4,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
   dropdownLinkColor: "#414142",
