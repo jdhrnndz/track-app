@@ -15,7 +15,7 @@ class StationActivityItem extends Component {
         <Col>
           <Row style={{ justifyContent: 'space-between' }}>
             <Text style={styles.name}>Cecilia McGee</Text>
-            <Text>10 mins ago</Text>
+            <Text style={styles.time}>10 mins ago</Text>
           </Row>
           <Row style={{ marginBottom: 30 }}>
             <Text>Siksikan!!!</Text>
@@ -44,6 +44,10 @@ const styles = {
   name: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  time: {
+    color: '#A7B6C6',
+    fontSize: 14,
   },
   line: {
     borderBottomColor: '#E5E9EE',
