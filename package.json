@@ -11,6 +11,8 @@
     "native-base": "^2.7.1",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-easy-grid": "^0.2.0",
+    "react-native-step-indicator": "0.0.9",
     "react-navigation": "^2.6.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

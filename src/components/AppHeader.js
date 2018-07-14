@@ -9,18 +9,18 @@ class AppHeader extends Component {
     if (this.props.leftIcon === '' || this.props.leftIcon === undefined) {
       return null;
     }
-    return <Icon name={this.props.leftIcon} />;
+    return <Icon name={this.props.leftIcon} style={{ color: '#000000' }} />;
   }
 
   renderRightIcon() {
     if (this.props.rightIcon === '' || this.props.rightIcon === undefined) {
       return null;
     }
-    return <Icon name={this.props.rightIcon} />;
+    return <Icon name={this.props.rightIcon} style={{ color: '#000000' }} />;
   }
 
   renderTitle() {
-    return <Title headerTitle>{this.props.headerTitle}</Title>
+    return <Title headerTitle style={{ color: '#18233F' }}>{this.props.headerTitle}</Title>
   }
 
   render() {
@@ -31,7 +31,7 @@ class AppHeader extends Component {
             {this.renderLeftIcon()}
           </Button>
         </Left>
-        <Body style={{ flex: 2 }}>
+        <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
           {this.renderTitle()}
         </Body>
         <Right style={{ flex: 1 }}>
@@ -39,7 +39,7 @@ class AppHeader extends Component {
             {this.renderRightIcon()}
           </Button>
         </Right>
-      </Header>
+      </Header >
     );
   }
 }

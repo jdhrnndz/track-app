@@ -4,10 +4,12 @@ import { createStackNavigator, createTabNavigator, createBottomTabNavigator, Tab
 import StationsStatus from './StationsStatus';
 import Profile from './Profile';
 import Notifications from './Notifications';
+import StationDetailsContainer from './StationDetailsContainer';
 
 const HomeStack = createStackNavigator(
   {
     StationsStatus: { screen: StationsStatus },
+    StationDetails: { screen: StationDetailsContainer },
   }, {
     headerMode: 'none',
     initialRouteName: 'StationsStatus',
