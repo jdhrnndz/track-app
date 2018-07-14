@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { createStackNavigator, createTabNavigator, createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import StationsStatus from './StationsStatus';
-import Notifications from './Notifications';
+import Reports from './Reports';
 import StationDetailsContainer from './StationDetailsContainer';
 import ProfileContainer from './ProfileContainer';
 import RewardsContainer from './RewardsContainer';
@@ -30,10 +30,10 @@ const TicketStack = createStackNavigator(
 
 const ReportStack = createStackNavigator(
   {
-    Notifs: { screen: Notifications },
+    Reports: { screen: Reports },
   }, {
     headerMode: 'none',
-    initialRouteName: 'Notifs',
+    initialRouteName: 'Reports',
   }
 );
 
