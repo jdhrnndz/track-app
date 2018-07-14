@@ -22,8 +22,9 @@ class StationsStatus extends Component {
 
   getTrainStatus() {
     axios.get('https://progress-on-track.herokuapp.com/api/trains/status')
-      .then((response) => {
-        const { status } = response.data.results;
+      .then((response) => response.data.results)
+      .then((data) => {
+        const { status } = data;
 
         const brokenTrainCount = parseInt(status[status.findIndex((element) => (element.status === "NON-OPERATIONAL"))].total);
         const operationalTrainCount = parseInt(status[status.findIndex((element) => (element.status === "OPERATIONAL"))].total);
