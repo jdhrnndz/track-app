@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Image } from 'react-native';
 import { createStackNavigator, createTabNavigator, createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import StationsStatus from './StationsStatus';
 import Profile from './Profile';
@@ -13,7 +14,7 @@ const HomeStack = createStackNavigator(
   }
 );
 
-const ImageStack = createStackNavigator(
+const TicketStack = createStackNavigator(
   {
     StationsStatus: { screen: StationsStatus },
   }, {
@@ -22,7 +23,7 @@ const ImageStack = createStackNavigator(
   }
 );
 
-const NotifsStack = createStackNavigator(
+const ReportStack = createStackNavigator(
   {
     Notifs: { screen: Notifications },
   }, {
@@ -43,25 +44,37 @@ const ProfileStack = createStackNavigator(
 
 const HomeNavigator = createBottomTabNavigator(
   {
-    // Deals: {
-    //   screen: DealsStack, navigationOptions: ({ navigation }) => ({
-    //     tabBarIcon: ({ }) => <Image
-    //       source={require('../assets/images/icn_deals.png')}
-    //       style={{ height: 22, width: 22 }}
-    //     />
-    //   })
-    // }
     Home: {
-      screen: HomeStack
+      screen: HomeStack, navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ }) => <Image
+          source={require('../assets/images/nav_home.png')}
+          style={{ height: 22, width: 22 }}
+        />
+      })
     },
-    Image: {
-      screen: ImageStack
+    Ticket: {
+      screen: TicketStack, navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ }) => <Image
+          source={require('../assets/images/nav_ticket.png')}
+          style={{ height: 22, width: 22 }}
+        />
+      })
     },
-    Notifs: {
-      screen: NotifsStack
+    Report: {
+      screen: ReportStack, navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ }) => <Image
+          source={require('../assets/images/nav_report.png')}
+          style={{ height: 22, width: 18 }}
+        />
+      })
     },
     Profile: {
-      screen: ProfileStack
+      screen: ProfileStack, navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ }) => <Image
+          source={require('../assets/images/nav_profile.png')}
+          style={{ height: 22, width: 20 }}
+        />
+      })
     }
   },
   {
@@ -71,7 +84,7 @@ const HomeNavigator = createBottomTabNavigator(
     // lazy: false,
     tabBarOptions: {
       activeBackgroundColor: '#ffffff',
-      activeTintColor: '#000000',
+      activeTintColor: '#FF9489',
       inactiveTintColor: '#b7b7b7',
       showIcon: true,
       style: {
@@ -81,7 +94,7 @@ const HomeNavigator = createBottomTabNavigator(
         backgroundColor: '#FF857A',
       },
       labelStyle: {
-        fontSize: 12,
+        fontSize: 14,
       }
     },
     // navigationOptions: {
