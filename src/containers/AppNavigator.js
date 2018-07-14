@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { createStackNavigator, createTabNavigator, createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import StationsStatus from './StationsStatus';
-import Profile from './Profile';
 import Notifications from './Notifications';
 import StationDetailsContainer from './StationDetailsContainer';
+import ProfileContainer from './ProfileContainer';
+import RewardsContainer from './RewardsContainer';
+import RewardDetailsContainer from './RewardDetailsContainer';
 
 const HomeStack = createStackNavigator(
   {
@@ -36,7 +38,9 @@ const ReportStack = createStackNavigator(
 
 const ProfileStack = createStackNavigator(
   {
-    Profile: { screen: Profile },
+    Profile: { screen: ProfileContainer },
+    Rewards: { screen: RewardsContainer },
+    RewardDetails: { screen: RewardDetailsContainer }
   }, {
     headerMode: 'none',
     initialRouteName: 'Profile',
