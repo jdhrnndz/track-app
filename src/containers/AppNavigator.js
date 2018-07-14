@@ -8,6 +8,7 @@ import ProfileContainer from './ProfileContainer';
 import RewardsContainer from './RewardsContainer';
 import RewardDetailsContainer from './RewardDetailsContainer';
 import TicketStoresContainer from './TicketStoresContainer';
+import ReportDetailsContainer from './ReportDetailsContainer';
 
 const HomeStack = createStackNavigator(
   {
@@ -31,6 +32,7 @@ const TicketStack = createStackNavigator(
 const ReportStack = createStackNavigator(
   {
     Reports: { screen: Reports },
+    ReportDetailsContainer: { screen: ReportDetailsContainer },
   }, {
     headerMode: 'none',
     initialRouteName: 'Reports',

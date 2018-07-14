@@ -12,7 +12,6 @@ import getTheme from '../../native-base-theme/components';
 import commonColor from '../../native-base-theme/variables/commonColor';
 import StationActivity from '../components/StationActivity';
 
-
 class StationDetailsContainer extends Component {
   constructor() {
     super();
@@ -159,6 +158,7 @@ class StationDetailsContainer extends Component {
 
   render() {
     const itemId = this.props.navigation.getParam('id', '');
+    const thumbnail = this.props.navigation.getParam('thumbnail', '');
 
     return (
       <StyleProvider style={getTheme(commonColor)}>
