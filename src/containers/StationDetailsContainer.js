@@ -34,6 +34,7 @@ class StationDetailsContainer extends Component {
   renderPopup() {
     return (<PopupDialog
       ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+      dialogStyle={{ marginTop: -120 }}
       width={0.8}
       height={0.7}>
       <View style={styles.popupContainer}>
