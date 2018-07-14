@@ -14,14 +14,14 @@ class StationActivityItem extends Component {
         </Col>
         <Col>
           <Row style={{ justifyContent: 'space-between' }}>
-            <Text style={styles.name}>Cecilia McGee</Text>
+            <Text style={styles.name}>{this.props.name}</Text>
             <Text style={styles.time}>10 mins ago</Text>
           </Row>
           <Row style={{ marginBottom: 30 }}>
-            <Text>Siksikan!!!</Text>
+            <Text>{this.props.description}</Text>
           </Row>
           <Row>
-            <Text style={{ fontWeight: 'bold' }}>UN Avenue - Northbound - Light</Text>
+            <Text style={{ fontWeight: 'bold' }}>{this.props.station}</Text>
           </Row>
           <Row>
             <View style={styles.line} />

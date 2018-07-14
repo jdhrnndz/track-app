@@ -3,6 +3,8 @@ import { View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { StyleProvider, Container, Content, Text, Button, Icon } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog from 'react-native-popup-dialog';
+import axios from 'axios';
+
 import AppHeader from '../components/AppHeader';
 import StationNextStatus from '../components/StationNextStatus';
 
@@ -16,6 +18,66 @@ class StationDetailsContainer extends Component {
     super();
     this.popupDialog = {};
     this.successDialog = {};
+    this.state = {
+      stationNorth: {},
+      stationSouth: {},
+      successData: {},
+      postDescription: '',
+    }
+  }
+
+  componentDidMount() {
+    this.getStationNorthDetails();
+    this.getStationSouthDetails();
+  }
+
+  getStationNorthDetails() {
+    const itemId = this.props.navigation.getParam('id', '');
+
+    axios.get(`https://progress-on-track.herokuapp.com/api/stations/${itemId}_NORTH`)
+      .then((response) => response.data.results)
+      .then((data) => {
+        this.setState({ stationNorth: data.station });
+        console.log(this.state.stationNorth);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  getStationSouthDetails() {
+    const itemId = this.props.navigation.getParam('id', '');
+
+    axios.get(`https://progress-on-track.herokuapp.com/api/stations/${itemId}_SOUTH`)
+      .then((response) => response.data.results)
+      .then((data) => {
+        this.setState({ stationSouth: data.station });
+        console.log(this.state.stationSouth);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  createPost() {
+    const itemId = this.props.navigation.getParam('id', '');
+
+    axios.post('https://progress-on-track.herokuapp.com/api/posts', {
+      description: `${this.state.postDescription}`,
+      stationId: `${itemId}_NORTH`,
+      status: 'LIGHT',
+      userId: 'levincalado',
+    })
+      .then((response) => response.data.results
+      )
+      .then((data) => {
+        console.log(data);
+        this.setState({ successData: data.post });
+        this.showSuccessDialog();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   showPopupDialog() {
@@ -32,6 +94,8 @@ class StationDetailsContainer extends Component {
   }
 
   renderPopup() {
+    const { postDescription } = this.state;
+
     return (<PopupDialog
       ref={(popupDialog) => { this.popupDialog = popupDialog; }}
       dialogStyle={{ marginTop: -120 }}
@@ -49,14 +113,15 @@ class StationDetailsContainer extends Component {
           </Col>
         </Grid>
         <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'center', marginTop: 10, color: '#18233F' }}>Passenger Volume</Text>
-        <Button bordered block style={styles.statusBtn}><Text>Light</Text></Button>
+        <Button block style={styles.statusBtn}><Text>Light</Text></Button>
         <Button bordered block style={styles.statusBtn}><Text>Moderate</Text></Button>
         <Button bordered block style={styles.statusBtn}><Text>Heavy</Text></Button>
         <TextInput
           style={styles.messageInput}
           placeholder="Type a message"
+          value={postDescription} onChangeText={(text) => { this.setState({ postDescription: text }); }}
         />
-        <Button block style={styles.postDialogBtn} onPress={() => { this.showSuccessDialog() }} ><Text>POST</Text></Button>
+        <Button block style={styles.postDialogBtn} onPress={() => { this.createPost() }} ><Text>POST</Text></Button>
       </View>
     </PopupDialog>);
   }
@@ -69,18 +134,36 @@ class StationDetailsContainer extends Component {
       <View style={styles.popupContainer}>
         <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'center', color: '#13AC35' }}>10 Points</Text>
         <Text style={{ alignSelf: 'center', color: '#18233F' }}>Thank you for helping our community!</Text>
-        <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: '#18233F' }}>UN Avenue</Text>
-        <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: '#18233F' }}>Northbound - Moderate</Text>
+        <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: '#18233F' }}>{this.state.successData.stationId}</Text>
+        <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: '#18233F' }}>{this.state.successData.status}</Text>
         <Button block style={styles.postDialogBtn} onPress={() => this.successDialog.dismiss()} ><Text>OKAY</Text></Button>
       </View>
     </PopupDialog>);
   }
 
+  renderNorth() {
+    return (
+      <StationNextStatus
+        currentStep={0}
+        stations={[this.state.stationNorth.destinationId, this.state.stationNorth.title]} />
+    );
+  }
+
+  renderSouth() {
+    return (
+      <StationNextStatus
+        currentStep={1}
+        stations={[this.state.stationSouth.title, this.state.stationSouth.destinationId]} />
+    );
+  }
+
   render() {
+    const itemId = this.props.navigation.getParam('id', '');
+
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Container style={{ backgroundColor: '#B5E9E5' }}>
-          <AppHeader headerTitle='UN Avenue'
+          <AppHeader headerTitle={this.state.stationNorth.title}
             leftIcon='arrow-back'
             leftAction={() => this.props.navigation.pop()} />
           {this.renderPopup()}
@@ -88,15 +171,11 @@ class StationDetailsContainer extends Component {
           <View style={{ flex: 1 }}>
             <Content>
               <Text style={styles.h2}>Northbound</Text>
-              <StationNextStatus
-                currentStep={0}
-                stations={["Doroteo Jose Station", "Carriedo Station"]} />
+              {this.renderNorth()}
               <Text style={styles.h2}>Southbound</Text>
-              <StationNextStatus
-                currentStep={1}
-                stations={["Carriedo Station", "Central Terminal"]} />
+              {this.renderSouth()}
               <Text style={styles.h2}></Text>
-              <StationActivity />
+              <StationActivity stationId={itemId} />
             </Content>
           </View>
           <View style={{ height: 50, backgroundColor: '#B5E9E5', paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'center' }}>
