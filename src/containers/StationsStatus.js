@@ -18,6 +18,7 @@ class StationsStatus extends Component {
     };
 
     this.getTrainStatus();
+    this.getStationsStatus();
   }
 
   getTrainStatus() {
@@ -40,10 +41,51 @@ class StationsStatus extends Component {
   }
 
   getStationsStatus() {
-    axios.get('')
+    axios.get('https://progress-on-track.herokuapp.com/api/stations/status')
+    .then((response) => response.data.results)
+    .then((data) => {
+      const statuses = data.statuses;
+
+      const southbound = statuses.slice(0).filter((status1) => status1["Station"]["flow"] === "SOUTH");
+      const northbound = statuses.slice(0).filter((status2) => status2["Station"]["flow"] === "NORTH");
+      const newStatus = [];
+
+      southbound.map((station) => {
+        const currentName = station.Station.name;
+
+        const indexOfPartner = northbound.findIndex((partner) => {
+          return partner.Station.name === currentName;
+        });
+
+        newStatus.push({
+          name: station.Station.title,
+          title: station.Station.name,
+          status: {
+            southbound: station.status,
+            northbound: indexOfPartner >= 0 ? northbound[indexOfPartner].status : '',
+          },
+        });
+      });
+
+      this.setState({
+        stationStatus: newStatus,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
+    const cards = this.state.stationStatus.map((stationStatus, index) => { console.log(stationStatus); return (
+      <StationOverviewCard
+        key={index}
+        navigation={this.props.navigation}
+        name={stationStatus.name}
+        title={stationStatus.title}
+        status={stationStatus.status} />
+    )});
+
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Container style={{ backgroundColor: '#B5E9E5' }}>
@@ -53,27 +95,7 @@ class StationsStatus extends Component {
           </View>
           <View style={{ flex: 1 }}>
             <Content>
-              <StationOverviewCard navigation={this.props.navigation}
-                name="Doroteo Jose"
-                title="DOROTEO_JOSE"
-                status={{
-                  southbound: 'LIGHT',
-                  northbound: 'HEAVY',
-                }} />
-              <StationOverviewCard navigation={this.props.navigation}
-                name="Carriedo"
-                title="CARRIEDO"
-                status={{
-                  southbound: 'MODERATE',
-                  northbound: 'LIGHT',
-                }} />
-              <StationOverviewCard navigation={this.props.navigation}
-                name="Central Terminal"
-                title="CENTRAL_TERMINAL"
-                status={{
-                  southbound: 'MODERATE',
-                  northbound: 'HEAVY',
-                }} />
+              {cards}
             </Content>
           </View>
         </Container>
